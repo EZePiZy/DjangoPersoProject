@@ -6,12 +6,18 @@ from decimal import *
 class Ingredient(models.Model):
     LBS = "lbs"
     TBSP = "tbsp"
+    GRAMS = 'grams'
+    KILO = 'kilo'
+    EGG = 'EGG'
     UNIT_CHOICE = [
         (LBS, 'Pound'),
-        (TBSP, 'Tablespoon')
+        (TBSP, 'Ounce'),
+        (GRAMS, 'grams'),
+        (KILO, 'kg'),
+        (EGG, 'egg')
     ]
     name = models.CharField(max_length=50)
-    quantity = models.IntegerField(default=0)
+    quantity = models.FloatField(default=0.00)
     unit = models.CharField(max_length=15, choices=UNIT_CHOICE, default=LBS)
     price_per_unit = models.FloatField(default=0.00)
 
@@ -36,6 +42,9 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return f"title={self.title}; price={self.price}"
+    
+    def available(self):
+        return all(X.enough() for X in self.reciperequirement_set.all())
 
 
 class RecipeRequirement(models.Model):
