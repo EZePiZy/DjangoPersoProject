@@ -38,7 +38,7 @@ class NewIngredientView(LoginRequiredMixin, CreateView):
     template_name = 'inventory/add_ingredient.html'
 
 class UpdateIngredientView(LoginRequiredMixin, UpdateView):
-    template_name = "inventory/update_ingredient.html"
+    template_name = 'inventory/update_ingredient.html'
     model = Ingredient
     form_class = IngredientForm
 
@@ -55,14 +55,39 @@ class NewRecipeRequirementView(LoginRequiredMixin, CreateView):
     template_name = "inventory/add_recipe_requirement.html"
     model = RecipeRequirement
     form_class = RecipeRequirementForm
+'''
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["menu_items"] = [X for X in MenuItem.objects.all()]
+        context["ingredients"] = [X for X in Ingredient.objects.all()]
+        
+
+        
+        return context
+
+    def post(self, request):
+        menu_item_id = request.POST["menu_item"]
+        ingredient_id = request.POST["ingredient"]
+        menu_item = MenuItem.objects.get(pk=menu_item_id)
+        ingredient = Ingredient.objects.get(pk=ingredient_id)
+        recipe_requirement = RecipeRequirement(menu_item=menu_item, ingredient=ingredient)
+
+     
+
+        recipe_requirement.save()
+        return redirect("/menu")
+    
+    '''
 
 class PurchasesView(LoginRequiredMixin, ListView):
     template_name = 'inventory/purchase_list.html'
     model = Purchase
 
 
+
 class NewPurchaseView(LoginRequiredMixin, TemplateView):
     template_name = "inventory/add_purchase.html"
+    form_class = PurchaseForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -85,7 +110,7 @@ class NewPurchaseView(LoginRequiredMixin, TemplateView):
 
 
 class ReportView(LoginRequiredMixin, TemplateView):
-    template_nam = 'inventory/reports.html'
+    template_name = 'inventory/reports.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

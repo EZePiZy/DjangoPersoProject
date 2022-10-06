@@ -18,6 +18,4 @@ urlpatterns = [
     path('purchases/new', views.NewPurchaseView.as_view(), name='add_purchase'),
     path('reports/', views.ReportView.as_view(), name='reports'),
 
-
-
 ]

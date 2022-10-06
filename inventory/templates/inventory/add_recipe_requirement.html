@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2>Add Recipe Requirement for a Menu Item</h2>
+<form method="post">
+    <div>
+        {% csrf_token %}
+        {{form.as_p}}
+      <!--<p>
+            <label for="menu_item">Menu item:</label>
+            <select name="menu_item" id="menu_item" required>
+                <option value selected>-----</option>
+                {% for menu_item in menu_items %}
+                <option value={{ menu_item.id }}>{{ menu_item.title }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="ingredient">Ingredient:</label>
+            <select name="ingredient" id="ingredient" required>
+                <option value selected>-----</option>
+                {% for ingredient in ingredients %}
+                <option value={{ ingredient.id }}>{{ ingredient.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        --> 
+        
+        <input type="submit" value="Submit" />
+    </div>
+</form>
+{% endblock %}
