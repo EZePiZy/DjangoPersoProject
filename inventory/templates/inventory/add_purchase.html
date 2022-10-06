@@ -5,7 +5,7 @@
     <form method="post">
       <div>
         {% csrf_token %}
-        
+        {{form.as_p}}
         <p>
             <label for="menu_item">Menu item:</label>
             <select name="menu_item" id="menu_item" required>
