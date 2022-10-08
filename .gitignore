@@ -76,6 +76,7 @@ db.sqlite3-journal
 db.sqlite3.backup
 db.sqlite3.backup.old
 
+
 # Flask stuff:
 instance/
 .webassets-cache
@@ -121,6 +122,7 @@ venv
 ENV/
 env.bak/
 venv.bak/
+
 
 # Spyder project settings
 .spyderproject
